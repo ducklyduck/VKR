@@ -1,93 +1,107 @@
-import React from "react";
+import React from 'react'
 // All the Screens
-import ProjectTasks from "../screens/ProjectTasks";
-import TodayTasks from "../screens/TodayTasks";
+import ProjectTasks from '../screens/ProjectTasks'
+import DateTasks from '../screens/DateTasks'
+import FocusMode from '../screens/FocusMode'
+import MakeTask from '../screens/MakeTask'
 // Components
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Feather } from "@expo/vector-icons";
-import FocusMode from "../screens/FocusMode";
-import MakeTask from "../screens/MakeTask";
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { NavigationContainer } from '@react-navigation/native'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { Feather } from '@expo/vector-icons'
+// import 'react-native-gesture-handler';
 
-const Tab = createBottomTabNavigator()
+const Drawer = createDrawerNavigator()
+const Stack = createNativeStackNavigator()
+// const Tab = createBottomTabNavigator()
+
+const TaskFilterScreens = (props) => {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen
+        name={'Date'}
+        component={DateTasks}
+        TaskList={props.TaskList}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Feather
+              name={'calendar'}
+              size={25}
+              color={focused ? 'crimson' : 'black'}
+            />
+          )
+        }}
+      />
+      <Drawer.Screen
+        name={'Project'}
+        component={ProjectTasks}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Feather
+              name={'bookmark'}
+              size={25}
+              color={focused ? 'crimson' : 'black'}
+            />
+          )
+        }}
+      />
+    </Drawer.Navigator>
+  )
+}
+
+const FabScreens = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name={'Task'}
+        component={MakeTask}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Feather
+              name={'pen-tool'}
+              size={25}
+              color={focused ? 'crimson' : 'black'}
+            />
+          )
+        }}
+      />
+      <Stack.Screen
+        name={'Focus'}
+        component={FocusMode}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Feather
+              name={'activity'}
+              size={25}
+              color={focused ? 'crimson' : 'black'}
+            />
+          )
+        }}
+      />
+    </Stack.Navigator>
+  )
+}
 
 const Tabs = () => {
   return (
-    <Tab.Navigator
-      screenOptions={{
-        tabBarActiveTintColor: "crimson",
-        tabBarInactiveTintColor: "grey",
-        tabBarStyle: {
-          backgroundColor: "white",
-        },
-        headerStyle: {
-          backgroundColor: "ghostwhite",
-        },
-        headerTitleStyle: {
-          fontWeight: "bold",
-          fontSize: 25,
-          color: "crimson",
-        },
-      }}
-    >
-      <Tab.Screen
-        name={"Today"}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Feather
-              name={"calendar"}
-              size={25}
-              color={focused ? "crimson" : "black"}
-            />
-          ),
-        }}
-      >
-        {() => <TodayTasks />}
-      </Tab.Screen>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="TaskScreens"
+          component={TaskFilterScreens}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="FabScreens"
+          component={FabScreens}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
 
-      <Tab.Screen
-        name={"Project"}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Feather
-              name={"bookmark"}
-              size={25}
-              color={focused ? "crimson" : "black"}
-            />
-          ),
-        }}
-      >
-        {() => <ProjectTasks />}
-      </Tab.Screen>
-      <Tab.Screen
-        name={"Task"}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Feather
-              name={"pen-tool"}
-              size={25}
-              color={focused ? "crimson" : "black"}
-            />
-          ),
-        }}
-      >
-        {() => <MakeTask />}
-      </Tab.Screen>
-      <Tab.Screen
-        name={"Focus"}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Feather
-              name={"activity"}
-              size={25}
-              color={focused ? "crimson" : "black"}
-            />
-          ),
-        }}
-      >
-        {() => <FocusMode />}
-      </Tab.Screen>
-    </Tab.Navigator>
-  );
-};
-
-export default Tabs;
+export default Tabs

@@ -1,39 +1,50 @@
-import React from "react";
-import moment from "moment";
-import { View, Text, StyleSheet } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import React from 'react'
+import moment from 'moment'
+import { View, Text, StyleSheet } from 'react-native'
+import { FontAwesome } from '@expo/vector-icons'
 
 const styles = StyleSheet.create({
   task: {
     padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    flexDirection: "row",
-    justifyContent: "space-around",
+    marginVertical: 10,
+    marginHorizontal: 25,
+    flexDirection: 'row',
     borderWidth: 2,
-    backgroundColor: "indianred",
+    backgroundColor: 'indianred'
+  },
+  statusIcon: {
+    marginLeft: 10,
+    marginRight: 20
+  },
+  text: {
+    fontSize: 18,
+    color: '#E5DFED',
+    marginRight: 'auto'
   },
   date: {
-    color: "#E5DFED",
+    color: '#E5DFED',
     fontSize: 15,
-  },
-});
+    marginRight: 5
+  }
+})
 
-const TaskItem = ({ status }) => {
-  console.log(status);
+const TaskItem = ({ isCompleted, taskText, taskDate }) => {
   return (
     <View style={styles.task}>
       <FontAwesome
-        name={status == "inProgress" ? "circle-o" : "check-circle-o"}
-        size={20}
+        name={isCompleted ? 'check-circle-o' : 'circle-o'}
+        style={styles.statusIcon}
+        size={30}
         borderRadius={0}
-        backgroundColor={"indianred"}
+        backgroundColor={'indianred'}
         color="black"
       ></FontAwesome>
-      <Text>Make food</Text>
-      <Text style={styles.date}>{moment().format("dddd h:mm:ss a")}</Text>
+      <Text style={styles.text}>{taskText}</Text>
+      <Text style={styles.date}>
+        {taskDate ? moment(taskDate).format('dddd') : ''}
+      </Text>
     </View>
-  );
-};
+  )
+}
 
-export default TaskItem;
+export default TaskItem

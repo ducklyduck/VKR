@@ -2,9 +2,10 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import TaskItem from '../components/TaskItem'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { AddIcon, Fab, FabIcon } from '@gluestack-ui/themed'
+import { AddIcon, Fab, FabIcon, VStack } from '@gluestack-ui/themed'
 import { FontAwesome } from '@expo/vector-icons'
 
+// TODO: import styles from a special style file
 const styles = StyleSheet.create({
   container: {
     flex: 1
@@ -17,27 +18,19 @@ const styles = StyleSheet.create({
   }
 })
 
-const ProjectTasks = ({ navigation }) => {
-  const projectTasksCount = 3
-  const projectName = 'Math'
+const DateTasks = ({ navigation }) => {
+  const date = 'Today'
+  const showIcon = 'true'
+  // const showLabel = 'true'
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.screenTitle}>{projectName}</Text>
-      <TaskItem
-        isCompleted={false}
-        taskText={'Do your homework'}
-        taskDate={'5'}
-      />
-      <TaskItem
-        isCompleted={false}
-        taskText={'Prepare for the exams'}
-        taskDate={'6'}
-      />
-      <TaskItem
-        isCompleted={false}
-        taskText={'Do extra exercises'}
-        taskDate={'6'}
-      />
+      <Text style={styles.screenTitle}>{date}</Text>
+      {/* TODO: take tasks from DB */}
+      <VStack space={'md'}>
+        <TaskItem isCompleted={true} taskText={'Clean the room'} />
+        <TaskItem isCompleted={false} taskText={'Do your homework'} />
+        <TaskItem isCompleted={false} taskText={'Take Foxy for a walk'} />
+      </VStack>
       <Fab
         placement={'bottom right'}
         size={'md'}
@@ -70,4 +63,4 @@ const ProjectTasks = ({ navigation }) => {
   )
 }
 
-export default ProjectTasks
+export default DateTasks
