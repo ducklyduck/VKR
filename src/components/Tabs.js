@@ -58,27 +58,14 @@ const FabScreens = () => {
         name={'Task'}
         component={MakeTask}
         options={{
-          tabBarIcon: ({ focused }) => (
-            <Feather
-              name={'pen-tool'}
-              size={25}
-              color={focused ? 'crimson' : 'black'}
-            />
-          )
+          headerShown: false
         }}
       />
       <Stack.Screen
         name={'Focus'}
         component={FocusMode}
         options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <Feather
-              name={'activity'}
-              size={25}
-              color={focused ? 'crimson' : 'black'}
-            />
-          )
+          headerShown: false
         }}
       />
     </Stack.Navigator>
