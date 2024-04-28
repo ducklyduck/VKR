@@ -21,36 +21,21 @@ const styles = StyleSheet.create({
 })
 
 const MakeTask = ({ navigation }) => {
-  const instState = [
-    {
-      title: 'Code',
-      isCompleted: true
-    },
-    {
-      title: 'Meeting with team at 9',
-      isCompleted: false
-    },
-    {
-      title: 'Check Emails',
-      isCompleted: false
-    },
-    {
-      title: 'Write an article',
-      isCompleted: false
-    }
-  ]
   const [taskTitle, setTaskTitle] = React.useState('')
-  const [taskTime, setTaskTime] = React.useState('Today')
+  const [taskDate, setTaskDate] = React.useState('Today')
+  const [taskProject, setTaskProject] = React.useState('')
   const [taskPriority, setTaskPriority] = React.useState(0)
-  const [taskList, setTaskList] = React.useState([instState])
+  const [taskTags, setTaskTags] = React.useState([])
+
+  // const [taskList, setTaskList] = React.useState([instState])
 
   const saveNewTask = (taskTitle) => {
     setTaskList((prevlist) => {
       return [
         ...prevlist,
         {
-          taskTiile: taskTitle,
-          taskDate: taskTime,
+          taskTitle: taskTitle,
+          taskDate: taskDate,
           isCompleted: false
         }
       ]
