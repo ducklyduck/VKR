@@ -3,6 +3,8 @@ import { View, Text, TextInput, StyleSheet } from 'react-native'
 import TaskItem from '../components/TaskItem'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { VStack } from '@gluestack-ui/themed'
+import { useTaskListStore } from '../utils/store'
 
 const styles = StyleSheet.create({
   container: {
@@ -23,14 +25,25 @@ const styles = StyleSheet.create({
 
 const FocusMode = ({ navigation }) => {
   const timer = '57:00'
+  const list = useTaskListStore((state) => state.taskList)
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.timer}>{timer}</Text>
       <Text style={{ fontWeight: '600', fontSize: 28 }}>Your tasks</Text>
-      <View style={styles.tasksWrapper}>
-        <TaskItem isCompleted={false} taskText={'Math homework'} />
-        <TaskItem isCompleted={false} taskText={'Physics homework'} />
-      </View>
+      <VStack style={styles.tasksWrapper} space={'md'}>
+        {list
+          .filter((task) => task.taskDate === 'Today')
+          .map((task, taskI) => (
+            <TaskItem
+              taskTitle={task.taskTitle}
+              isCompleted={task.isCompleted}
+              taskDate={task.taskDate}
+              taskProject={task.taskProject}
+              taskPriority={task.taskPriority}
+              taskTags={task.taskTags}
+            />
+          ))}
+      </VStack>
       <FontAwesome.Button
         name="pause"
         backgroundColor="indianred"

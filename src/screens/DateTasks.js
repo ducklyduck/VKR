@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import TaskItem from '../components/TaskItem'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { AddIcon, Fab, FabIcon, VStack } from '@gluestack-ui/themed'
@@ -24,23 +24,25 @@ const DateTasks = ({ navigation }) => {
   const list = useTaskListStore((state) => state.taskList)
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.screenTitle}>{date}</Text>
-      {/* TODO: take tasks from DB */}
+      <TouchableOpacity onPress={() => navigation.openDrawer()}>
+        <Text style={styles.screenTitle}>{date}</Text>
+      </TouchableOpacity>
+
       <VStack space={'md'}>
-        {list.map((task, taskI) => (
-          <TaskItem
-            taskTitle={task.taskTitle}
-            isCompleted={task.isCompleted}
-            taskDate={task.taskDate}
-            taskProject={task.taskProject}
-            taskPriority={task.taskPriority}
-            taskTags={task.taskTags}
-          />
-        ))}
-        {/* <TaskItem isCompleted={true} taskText={'Clean the room'} />
-        <TaskItem isCompleted={false} taskText={'Do your homework'} />
-        <TaskItem isCompleted={false} taskText={'Take Foxy for a walk'} /> */}
+        {list
+          .filter((task) => task.taskDate === date)
+          .map((task, taskI) => (
+            <TaskItem
+              taskTitle={task.taskTitle}
+              isCompleted={task.isCompleted}
+              taskDate={task.taskDate}
+              taskProject={task.taskProject}
+              taskPriority={task.taskPriority}
+              taskTags={task.taskTags}
+            />
+          ))}
       </VStack>
+
       <Fab
         placement={'bottom right'}
         size={'md'}

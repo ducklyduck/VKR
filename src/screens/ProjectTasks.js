@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import TaskItem from '../components/TaskItem'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { AddIcon, Fab, FabIcon } from '@gluestack-ui/themed'
+import { Fab, VStack } from '@gluestack-ui/themed'
 import { FontAwesome } from '@expo/vector-icons'
+import { useTaskListStore } from '../utils/store'
 
 const styles = StyleSheet.create({
   container: {
@@ -18,26 +19,29 @@ const styles = StyleSheet.create({
 })
 
 const ProjectTasks = ({ navigation }) => {
-  const projectTasksCount = 3
-  const projectName = 'Math'
+  const project = 'Math'
+  const list = useTaskListStore((state) => state.taskList)
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.screenTitle}>{projectName}</Text>
-      <TaskItem
-        isCompleted={false}
-        taskText={'Do your homework'}
-        taskDate={'5'}
-      />
-      <TaskItem
-        isCompleted={false}
-        taskText={'Prepare for the exams'}
-        taskDate={'6'}
-      />
-      <TaskItem
-        isCompleted={false}
-        taskText={'Do extra exercises'}
-        taskDate={'6'}
-      />
+      <TouchableOpacity onPress={() => navigation.openDrawer()}>
+        <Text style={styles.screenTitle}>{project}</Text>
+      </TouchableOpacity>
+
+      <VStack space={'md'}>
+        {list
+          .filter((task) => task.taskProject === project)
+          .map((task, taskI) => (
+            <TaskItem
+              taskTitle={task.taskTitle}
+              isCompleted={task.isCompleted}
+              taskDate={task.taskDate}
+              taskProject={task.taskProject}
+              taskPriority={task.taskPriority}
+              taskTags={task.taskTags}
+            />
+          ))}
+      </VStack>
+
       <Fab
         placement={'bottom right'}
         size={'md'}
