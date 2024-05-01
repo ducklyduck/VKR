@@ -13,15 +13,13 @@ import { Feather } from '@expo/vector-icons'
 
 const Drawer = createDrawerNavigator()
 const Stack = createNativeStackNavigator()
-// const Tab = createBottomTabNavigator()
 
-const TaskFilterScreens = (props) => {
+const TaskFilterScreens = () => {
   return (
     <Drawer.Navigator>
       <Drawer.Screen
         name={'Date'}
         component={DateTasks}
-        TaskList={props.TaskList}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
