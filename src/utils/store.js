@@ -7,7 +7,7 @@ export const useTaskListStore = create((set) => ({
       isCompleted: false,
       taskDate: 'Today',
       taskProject: '',
-      TaskPriority: 3,
+      taskPriority: 3,
       taskTags: []
     },
     {
@@ -15,7 +15,7 @@ export const useTaskListStore = create((set) => ({
       isCompleted: false,
       taskDate: 'Today',
       taskProject: 'Math',
-      TaskPriority: 1,
+      taskPriority: 2,
       taskTags: []
     },
     {
@@ -23,7 +23,7 @@ export const useTaskListStore = create((set) => ({
       isCompleted: true,
       taskDate: 'Today',
       taskProject: 'Daily',
-      TaskPriority: 0,
+      taskPriority: 1,
       taskTags: []
     },
     {
@@ -31,7 +31,7 @@ export const useTaskListStore = create((set) => ({
       isCompleted: false,
       taskDate: 'Tomorrow',
       taskProject: 'Daily',
-      TaskPriority: 0,
+      taskPriority: 3,
       taskTags: []
     },
     {
@@ -39,7 +39,7 @@ export const useTaskListStore = create((set) => ({
       isCompleted: false,
       taskDate: 'Saturday',
       taskProject: 'Physics',
-      TaskPriority: 0,
+      taskPriority: 2,
       taskTags: ['homework', 'studies']
     },
     {
@@ -47,7 +47,7 @@ export const useTaskListStore = create((set) => ({
       isCompleted: false,
       taskDate: 'Saturday',
       taskProject: 'Math',
-      TaskPriority: 0,
+      taskPriority: 2,
       taskTags: ['homework', 'studies']
     },
     {
@@ -55,7 +55,7 @@ export const useTaskListStore = create((set) => ({
       isCompleted: false,
       taskDate: 'Saturday',
       taskProject: 'Physics',
-      TaskPriority: 0,
+      taskPriority: 2,
       taskTags: ['homework', 'studies']
     },
     {
@@ -63,7 +63,7 @@ export const useTaskListStore = create((set) => ({
       isCompleted: false,
       taskDate: 'Monday',
       taskProject: 'Math',
-      TaskPriority: 0,
+      taskPriority: 3,
       taskTags: ['studies']
     }
   ],
@@ -77,7 +77,7 @@ export const useTaskListStore = create((set) => ({
           isCompleted: true,
           taskDate: 'Today',
           taskProject: '',
-          TaskPriority: 0,
+          taskPriority: 0,
           taskTags: []
         }
     })),
