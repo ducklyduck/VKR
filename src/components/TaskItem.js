@@ -70,6 +70,7 @@ const TaskItem = ({
             name={isCompleted ? 'check-circle-o' : 'circle-o'}
             style={styles.statusIcon}
             size={30}
+            onPress={() => console.log(taskPriority)}
             borderRadius={0}
             color={checkboxColor}
           ></FontAwesome>
