@@ -58,6 +58,7 @@ const TaskItem = ({
   }
 
   return (
+    // TODO: make tasks swipeable using gesture-handler or ant-design
     <Center paddingHorizontal={20} marginBottom={10}>
       <VStack maxW="300" w="100%" backgroundColor="white" padding={5}>
         <HStack justifyContent="space-between">

@@ -1,9 +1,10 @@
 import React from 'react'
-import { Button, ButtonText } from '@gluestack-ui/themed'
-import { View, Text, StyleSheet, TextInput } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Text, StyleSheet, TextInput, Button } from 'react-native'
+import { HStack, VStack } from '@gluestack-ui/themed'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
-import { AntDesign } from '@expo/vector-icons'
+import enUS from '@ant-design/react-native/lib/locale-provider/en_US'
+import * as Font from 'expo-font'
+import DatePicker from 'react-native-date-picker'
 
 const styles = StyleSheet.create({
   container: {
@@ -22,36 +23,37 @@ const styles = StyleSheet.create({
 
 const MakeTask = ({ navigation }) => {
   const [taskTitle, setTaskTitle] = React.useState('')
-  const [taskDate, setTaskDate] = React.useState('Today')
+  const [taskDate, setTaskDate] = React.useState(new Date())
   const [taskProject, setTaskProject] = React.useState('')
   const [taskPriority, setTaskPriority] = React.useState(0)
   const [taskTags, setTaskTags] = React.useState([])
 
+  const [open, setOpen] = React.useState(false)
   // const [taskList, setTaskList] = React.useState([instState])
 
-  const saveNewTask = (taskTitle) => {
-    setTaskList((prevlist) => {
-      return [
-        ...prevlist,
-        {
-          taskTitle: taskTitle,
-          taskDate: taskDate,
-          isCompleted: false
-        }
-      ]
-    })
-    console.log(taskList)
+  const saveNewTask = () => {
+    // setTaskList((prevlist) => {
+    //   return [
+    //     ...prevlist,
+    //     {
+    //       taskTitle: taskTitle,
+    //       taskDate: taskDate,
+    //       isCompleted: false
+    //     }
+    //   ]
+    // })
+    console.log(taskTitle)
     navigation.goBack()
   }
-  const handleDelete = (index) => {
-    setTaskList((prevList) => {
-      const temp = prevList.filter((_, itemI) => itemI !== index)
-      return temp
-    })
-  }
+  // const handleDelete = (index) => {
+  //   setTaskList((prevList) => {
+  //     const temp = prevList.filter((_, itemI) => itemI !== index)
+  //     return temp
+  //   })
+  // }
 
   return (
-    <View style={styles.container}>
+    <VStack style={styles.container}>
       <Text>Task</Text>
       <TextInput
         style={styles.input}
@@ -59,21 +61,29 @@ const MakeTask = ({ navigation }) => {
         value={taskTitle}
       />
       {/* TODO: choosing date via calender styled input */}
-      <TextInput
-        style={styles.input}
-        onChangeText={setTaskTime}
-        value={taskTime}
+      <Button title="Open" onPress={() => setOpen(true)} />
+      <DatePicker
+        modal
+        open={open}
+        date={taskDate}
+        onConfirm={(taskDate) => {
+          setOpen(false)
+          setTaskDate(taskDate)
+        }}
+        onCancel={() => {
+          setOpen(false)
+        }}
       />
-      {/* TODO: add choosing tags, priority, project and planned time */}
-      <FontAwesome.Button
-        name="check"
-        backgroundColor="#3b5998"
-        borderRadius={36}
-        onPress={saveNewTask}
-      >
-        Confirm
-      </FontAwesome.Button>
-    </View>
+      {/* TODO: tags, priorities, project pickers */}
+      <HStack>
+        {/* <Button size="sm" variant="link" onPress={() => console.log('pressed')}>
+          <Icon as={FontAwesome} name="plus" size="xs" color="grey" />
+        </Button>
+        <Button size="sm" variant="link" onPress={() => console.log('pressed')}>
+          <Icon as={FontAwesome} name="tasks" size="lg" color="grey" />
+        </Button> */}
+      </HStack>
+    </VStack>
   )
 }
 
